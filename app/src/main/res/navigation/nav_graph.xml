@@ -3,26 +3,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
-
+    app:startDestination="@id/feedFragment">
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="nl.rgasc.tubeless.FeedFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_feed">
-
+        android:id="@+id/addChannelFragment"
+        android:name="nl.rgasc.tubeless.AddChannelFragment"
+        android:label="AddChannelFragment" >
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_addChannelFragment_to_channelFragment"
+            app:destination="@id/channelFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="nl.rgasc.tubeless.VideoFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_add_channel">
-
+        android:id="@+id/channelFragment"
+        android:name="nl.rgasc.tubeless.ChannelFragment"
+        android:label="ChannelFragment" >
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_channelFragment_to_videoFragment"
+            app:destination="@id/videoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/videoFragment"
+        android:name="nl.rgasc.tubeless.VideoFragment"
+        android:label="fragment_add_channel"
+        tools:layout="@layout/fragment_add_channel" />
+    <fragment
+        android:id="@+id/feedFragment"
+        android:name="nl.rgasc.tubeless.FeedFragment"
+        android:label="fragment_feed"
+        tools:layout="@layout/fragment_feed" >
+        <action
+            android:id="@+id/action_feedFragment_to_addChannelFragment"
+            app:destination="@id/addChannelFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_videoFragment"
+            app:destination="@id/videoFragment" />
     </fragment>
 </navigation>

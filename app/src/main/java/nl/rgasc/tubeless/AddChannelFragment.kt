@@ -5,27 +5,33 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
+import nl.rgasc.tubeless.databinding.FragmentAddChannelBinding
 
 /**
  * In this fragment a channel can be added
  */
 class AddChannelFragment : Fragment() {
 
+    private var _binding: FragmentAddChannelBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_channel, container, false)
+    ): View {
+        _binding = FragmentAddChannelBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.button_second).setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+        (activity as AppCompatActivity).supportActionBar?.title = "Add channel"
+
+        binding.btnAdd.setOnClickListener {
+            findNavController().navigate(R.id.action_addChannelFragment_to_channelFragment)
         }
     }
 }

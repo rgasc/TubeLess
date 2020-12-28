@@ -28,7 +28,7 @@ class FeedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as AppCompatActivity).supportActionBar?.title = "My channel feed"
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.fragment_feed_title)
 
         binding.fabAddChannel.setOnClickListener {
             findNavController().navigate(R.id.action_feedFragment_to_addChannelFragment)

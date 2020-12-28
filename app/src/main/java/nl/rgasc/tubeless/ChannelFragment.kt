@@ -23,6 +23,6 @@ class ChannelFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as AppCompatActivity).supportActionBar?.title = "Channel name"
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.fragment_channel_title)
     }
 }

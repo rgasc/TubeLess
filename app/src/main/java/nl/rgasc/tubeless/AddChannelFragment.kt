@@ -28,7 +28,7 @@ class AddChannelFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as AppCompatActivity).supportActionBar?.title = "Add channel"
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.fragment_add_channel_title)
 
         binding.btnAdd.setOnClickListener {
             findNavController().navigate(R.id.action_addChannelFragment_to_channelFragment)

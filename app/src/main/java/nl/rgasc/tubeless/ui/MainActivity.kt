@@ -1,4 +1,4 @@
-package nl.rgasc.tubeless
+package nl.rgasc.tubeless.ui
 
 import android.os.Bundle
 import android.view.MenuItem

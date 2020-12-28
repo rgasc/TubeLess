@@ -5,7 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.MainActivity">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -38,7 +38,11 @@
         android:layout_height="match_parent"
         android:layout_gravity="start">
 
-        <include layout="@layout/fragment_drawer" />
+        <androidx.fragment.app.FragmentContainerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/drawer_fragment"
+            android:name="nl.rgasc.tubeless.ui.DrawerFragment" />
 
     </com.google.android.material.navigation.NavigationView>
 

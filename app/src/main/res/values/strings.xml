@@ -2,8 +2,8 @@
     <string name="app_name">TubeLess</string>
 
     <string name="fragment_feed_title">Channel feed</string>
-    <string name="fragment_channel_title">%s</string>
     <string name="fragment_add_channel_title">Add channel</string>
+    <string name="fragment_channel_title">%s</string>
 
     <string name="video_title">%s</string>
     <string name="video_info">%s · %d views · %d %s ago</string>
@@ -13,4 +13,6 @@
     <string name="add_channel_hint">Channel</string>
 
     <string name="drawer_title">Channels</string>
+    <string name="drawer_btn_feed">Back to feed</string>
+    <string name="drawer_btn_add">Add channel</string>
 </resources>

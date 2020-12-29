@@ -5,13 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import nl.rgasc.tubeless.databinding.FragmentDrawerBinding
 import nl.rgasc.tubeless.models.Channel
 import nl.rgasc.tubeless.adapters.ChannelAdapter
-import nl.rgasc.tubeless.views.MainActivity
+import nl.rgasc.tubeless.viewmodels.ChannelViewModel
 
 /**
  * This shows a feed of all the users channels
@@ -22,12 +23,15 @@ class DrawerFragment : Fragment() {
     private val binding get() = _binding!!
     private val channels: ArrayList<Channel> = arrayListOf()
     private lateinit var channelAdapter: ChannelAdapter
+    private val _viewModel: ChannelViewModel by activityViewModels()
+
+    val viewModel: ChannelViewModel get() = _viewModel
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
-        channelAdapter = ChannelAdapter(channels, activity as MainActivity)
+        channelAdapter = ChannelAdapter(channels, this)
         _binding = FragmentDrawerBinding.inflate(inflater, container, false)
         return binding.root
     }

@@ -8,11 +8,14 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import nl.rgasc.tubeless.R
 import nl.rgasc.tubeless.databinding.ItemChannelBinding
+import nl.rgasc.tubeless.fragments.DrawerFragment
 import nl.rgasc.tubeless.models.Channel
 import nl.rgasc.tubeless.views.MainActivity
 
-class ChannelAdapter(private val channels: List<Channel>, private val activity: MainActivity)
-    : RecyclerView.Adapter<ChannelAdapter.ViewHolder>() {
+class ChannelAdapter(
+    private val channels: List<Channel>,
+    private val drawerFragment: DrawerFragment
+) : RecyclerView.Adapter<ChannelAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -33,6 +36,10 @@ class ChannelAdapter(private val channels: List<Channel>, private val activity: 
 
         fun bind(channel: Channel) {
             binding.channel.setOnClickListener {
+                drawerFragment.viewModel.currentChannel = channel
+
+                val activity = drawerFragment.activity as MainActivity
+
                 activity.findNavController(R.id.nav_host_fragment).navigate(R.id.channelFragment)
                 activity.binding.drawerLayout.closeDrawer(GravityCompat.START)
             }

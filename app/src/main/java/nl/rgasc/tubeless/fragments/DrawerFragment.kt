@@ -27,15 +27,12 @@ class DrawerFragment : Fragment() {
     private val binding get() = _binding!!
     private val channels: ArrayList<Channel> = arrayListOf()
     private lateinit var channelAdapter: ChannelAdapter
-    private val _viewModel: ChannelViewModel by activityViewModels()
-
-    val viewModel: ChannelViewModel get() = _viewModel
+    private val viewModel: ChannelViewModel by activityViewModels()
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
-        channelAdapter = ChannelAdapter(channels, this)
         _binding = FragmentDrawerBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -47,6 +44,8 @@ class DrawerFragment : Fragment() {
     }
 
     private fun initViews() {
+        channelAdapter = ChannelAdapter(channels, ::onChannelClick)
+
         binding.rvChannels.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         binding.rvChannels.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL));
         binding.rvChannels.adapter = channelAdapter
@@ -60,6 +59,11 @@ class DrawerFragment : Fragment() {
         }
     }
 
+    private fun onChannelClick(channel: Channel) {
+        viewModel.currentChannel = channel
+        navigate(R.id.channelFragment)
+    }
+
     private fun observeChannels() {
         val newChannels = arrayListOf<Channel>()
         var c = 'z'
@@ -70,7 +74,6 @@ class DrawerFragment : Fragment() {
         }
 
         channels.addAll(newChannels.sortedBy { it.name })
-
         channelAdapter.notifyDataSetChanged()
     }
 

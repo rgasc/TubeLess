@@ -6,7 +6,7 @@
     <string name="fragment_channel_title">%s</string>
 
     <string name="video_title">%s</string>
-    <string name="video_info">%s · %d views · %d %s ago</string>
+    <string name="video_info">%s · %s views · %s</string>
 
     <string name="add_channel_description">Enter the channel title</string>
     <string name="add_channel_button">Add</string>

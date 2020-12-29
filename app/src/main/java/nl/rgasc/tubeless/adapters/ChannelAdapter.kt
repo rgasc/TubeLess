@@ -3,18 +3,14 @@ package nl.rgasc.tubeless.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.GravityCompat
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import nl.rgasc.tubeless.R
 import nl.rgasc.tubeless.databinding.ItemChannelBinding
-import nl.rgasc.tubeless.fragments.DrawerFragment
 import nl.rgasc.tubeless.models.Channel
-import nl.rgasc.tubeless.views.MainActivity
 
 class ChannelAdapter(
     private val channels: List<Channel>,
-    private val drawerFragment: DrawerFragment
+    private val onClick: (Channel) -> Unit
 ) : RecyclerView.Adapter<ChannelAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -34,16 +30,13 @@ class ChannelAdapter(
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = ItemChannelBinding.bind(itemView)
 
-        fun bind(channel: Channel) {
+        init {
             binding.channel.setOnClickListener {
-                drawerFragment.viewModel.currentChannel = channel
-
-                val activity = drawerFragment.activity as MainActivity
-
-                activity.findNavController(R.id.nav_host_fragment).navigate(R.id.channelFragment)
-                activity.binding.drawerLayout.closeDrawer(GravityCompat.START)
+                onClick(channels[adapterPosition])
             }
+        }
 
+        fun bind(channel: Channel) {
             binding.tvChannelName.text = channel.name
         }
     }

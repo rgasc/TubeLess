@@ -1,4 +1,4 @@
-package nl.rgasc.tubeless.ui
+package nl.rgasc.tubeless.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import nl.rgasc.tubeless.databinding.FragmentDrawerBinding
-import nl.rgasc.tubeless.model.Channel
+import nl.rgasc.tubeless.models.Channel
+import nl.rgasc.tubeless.adapters.ChannelAdapter
+import nl.rgasc.tubeless.views.MainActivity
 
 /**
  * This shows a feed of all the users channels
@@ -19,12 +21,13 @@ class DrawerFragment : Fragment() {
     private var _binding: FragmentDrawerBinding? = null
     private val binding get() = _binding!!
     private val channels: ArrayList<Channel> = arrayListOf()
-    private val channelAdapter: ChannelAdapter = ChannelAdapter(channels)
+    private lateinit var channelAdapter: ChannelAdapter
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
+        channelAdapter = ChannelAdapter(channels, activity as MainActivity)
         _binding = FragmentDrawerBinding.inflate(inflater, container, false)
         return binding.root
     }

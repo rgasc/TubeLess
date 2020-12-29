@@ -6,7 +6,7 @@
     app:startDestination="@id/feedFragment">
     <fragment
         android:id="@+id/addChannelFragment"
-        android:name="nl.rgasc.tubeless.ui.AddChannelFragment"
+        android:name="nl.rgasc.tubeless.fragments.AddChannelFragment"
         android:label="AddChannelFragment" >
         <action
             android:id="@+id/action_addChannelFragment_to_channelFragment"
@@ -14,7 +14,7 @@
     </fragment>
     <fragment
         android:id="@+id/channelFragment"
-        android:name="nl.rgasc.tubeless.ui.ChannelFragment"
+        android:name="nl.rgasc.tubeless.fragments.ChannelFragment"
         android:label="ChannelFragment" >
         <action
             android:id="@+id/action_channelFragment_to_videoFragment"
@@ -22,12 +22,12 @@
     </fragment>
     <fragment
         android:id="@+id/videoFragment"
-        android:name="nl.rgasc.tubeless.ui.VideoFragment"
+        android:name="nl.rgasc.tubeless.fragments.VideoFragment"
         android:label="fragment_add_channel"
         tools:layout="@layout/fragment_add_channel" />
     <fragment
         android:id="@+id/feedFragment"
-        android:name="nl.rgasc.tubeless.ui.FeedFragment"
+        android:name="nl.rgasc.tubeless.fragments.FeedFragment"
         android:label="fragment_feed"
         tools:layout="@layout/fragment_feed" >
         <action

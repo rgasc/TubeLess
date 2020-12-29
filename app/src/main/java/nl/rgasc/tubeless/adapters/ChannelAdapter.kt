@@ -1,14 +1,18 @@
-package nl.rgasc.tubeless.ui
+package nl.rgasc.tubeless.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.GravityCompat
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import nl.rgasc.tubeless.R
 import nl.rgasc.tubeless.databinding.ItemChannelBinding
-import nl.rgasc.tubeless.model.Channel
+import nl.rgasc.tubeless.models.Channel
+import nl.rgasc.tubeless.views.MainActivity
 
-class ChannelAdapter(private val channels: List<Channel>) : RecyclerView.Adapter<ChannelAdapter.ViewHolder>() {
+class ChannelAdapter(private val channels: List<Channel>, private val activity: MainActivity)
+    : RecyclerView.Adapter<ChannelAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -28,6 +32,11 @@ class ChannelAdapter(private val channels: List<Channel>) : RecyclerView.Adapter
         private val binding = ItemChannelBinding.bind(itemView)
 
         fun bind(channel: Channel) {
+            binding.channel.setOnClickListener {
+                activity.findNavController(R.id.nav_host_fragment).navigate(R.id.channelFragment)
+                activity.binding.drawerLayout.closeDrawer(GravityCompat.START)
+            }
+
             binding.tvChannelName.text = channel.name
         }
     }

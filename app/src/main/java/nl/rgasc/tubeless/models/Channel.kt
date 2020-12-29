@@ -1,4 +1,4 @@
-package nl.rgasc.tubeless.model
+package nl.rgasc.tubeless.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

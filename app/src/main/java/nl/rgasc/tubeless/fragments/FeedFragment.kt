@@ -61,12 +61,12 @@ class FeedFragment : Fragment() {
                     "A+Start",
                     "329371",
                     SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+'ss:ss", Locale.ENGLISH)
-                        .parse("2020-12-12T00:59:58+00:00")!!
+                        .parse("2020-12-0" + i + "T00:59:58+00:00")!!
                 )
             )
         }
 
-        videos.addAll(newVideos)
+        videos.addAll(newVideos.sortedByDescending { it.uploaded })
         videoAdapter.notifyDataSetChanged()
     }
 }

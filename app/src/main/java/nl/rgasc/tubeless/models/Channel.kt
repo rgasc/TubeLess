@@ -6,14 +6,13 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "channels")
 data class Channel(
+    @ColumnInfo(name = "name")
+    var name: String,
 
-        @ColumnInfo(name = "name")
-        var name: String,
+    @ColumnInfo(name = "channel_id")
+    var channelId: String,
 
-        @ColumnInfo(name = "channel_id")
-        var channelId: String,
-
-        @PrimaryKey(autoGenerate = true)
-        @ColumnInfo(name = "id")
-        var id: Long? = null
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    var id: Long? = null
 )

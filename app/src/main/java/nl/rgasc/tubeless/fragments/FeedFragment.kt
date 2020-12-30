@@ -6,15 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import nl.rgasc.tubeless.R
 import nl.rgasc.tubeless.adapters.VideoAdapter
 import nl.rgasc.tubeless.databinding.FragmentFeedBinding
 import nl.rgasc.tubeless.models.Video
-import nl.rgasc.tubeless.views.MainActivity
-import java.text.SimpleDateFormat
-import java.util.*
+import nl.rgasc.tubeless.viewmodels.VideoViewModel
 
 /**
  * This shows a feed of all the users channels
@@ -25,12 +25,12 @@ class FeedFragment : Fragment() {
     private val binding get() = _binding!!
     private val videos: ArrayList<Video> = arrayListOf()
     private lateinit var videoAdapter: VideoAdapter
+    private val viewModel: VideoViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        videoAdapter = VideoAdapter(videos, activity as MainActivity)
         _binding = FragmentFeedBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -45,28 +45,19 @@ class FeedFragment : Fragment() {
     }
 
     private fun initViews() {
+        videoAdapter = VideoAdapter(videos)
+
         binding.rvVideos.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         binding.rvVideos.adapter = videoAdapter
     }
 
     private fun observeVideos() {
-        val newVideos = arrayListOf<Video>()
+        viewModel.getVideos("UCGuLNglNx1LOMxuKat-QGyw")
 
-        for (i in 1..5) {
-            newVideos.add(
-                Video(
-                    "https://www.youtube.com/watch?v=3rBLWM9GLnw",
-                    "https://i4.ytimg.com/vi/3rBLWM9GLnw/hqdefault.jpg",
-                    "Spider-Man Miles Morales Glitches - Son of a Glitch - Episode 100",
-                    "A+Start",
-                    "329371",
-                    SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'+'ss:ss", Locale.ENGLISH)
-                        .parse("2020-12-0" + i + "T00:59:58+00:00")!!
-                )
-            )
-        }
-
-        videos.addAll(newVideos.sortedByDescending { it.uploaded })
-        videoAdapter.notifyDataSetChanged()
+        viewModel.videos.observe(viewLifecycleOwner, Observer {
+            videos.clear()
+            videos.addAll(it.sortedByDescending { video -> video.uploaded })
+            videoAdapter.notifyDataSetChanged()
+        })
     }
 }

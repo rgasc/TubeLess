@@ -18,8 +18,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class VideoAdapter(
-    private val videos: List<Video>,
-    private val activity: MainActivity
+    private val videos: List<Video>
 ) : RecyclerView.Adapter<VideoAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

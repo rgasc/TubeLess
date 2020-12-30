@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import nl.rgasc.tubeless.R
 import nl.rgasc.tubeless.adapters.VideoAdapter
 import nl.rgasc.tubeless.databinding.FragmentFeedBinding
+import nl.rgasc.tubeless.models.Channel
 import nl.rgasc.tubeless.models.Video
 import nl.rgasc.tubeless.viewmodels.VideoViewModel
 
@@ -52,11 +53,19 @@ class FeedFragment : Fragment() {
     }
 
     private fun observeVideos() {
-        viewModel.getVideos("UCGuLNglNx1LOMxuKat-QGyw")
+        viewModel.getVideos(
+            arrayListOf(
+                Channel("NileRed", "UCFhXFikryT4aFcLkLw2LBLA"),
+                Channel("A Friend", "UCNtQ6jbQgkV4kII043lU06w"),
+                Channel("LGR", "UCLx053rWZxCiYWsBETgdKrQ")
+            )
+        )
 
         viewModel.videos.observe(viewLifecycleOwner, Observer {
+            val currentVideos = ArrayList(videos)
             videos.clear()
-            videos.addAll(it.sortedByDescending { video -> video.uploaded })
+            currentVideos.addAll(it)
+            videos.addAll(currentVideos.sortedByDescending { video -> video.uploaded })
             videoAdapter.notifyDataSetChanged()
         })
     }

@@ -26,7 +26,7 @@ class VideoRepository {
             response.entryList?.forEach { entry ->
                 videos.add(
                     Video(
-                        videoUrl = entry.group?.content?.videoUrl!!,
+                        videoUrl = entry.videoUrl,
                         thumbnailUrl = entry.group?.thumbnail?.thumbnailUrl!!,
                         title = entry.group?.title!!,
                         channelName = entry.author?.channelName!!,

@@ -4,6 +4,7 @@
     <string name="fragment_feed_title">Channel feed</string>
     <string name="fragment_add_channel_title">Add channel</string>
     <string name="fragment_channel_title">%s</string>
+    <string name="fragment_video_title">Video player</string>
 
     <string name="video_title">%s</string>
     <string name="video_info">%s · %s views · %s</string>

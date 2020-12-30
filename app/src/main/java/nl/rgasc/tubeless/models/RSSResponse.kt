@@ -10,13 +10,12 @@ import org.simpleframework.xml.Root
  *
  * - feed
  *      - entry
+ *          videoUrl - videoId
  *          uploaded - published
  *          - author
  *              channelName - name
  *          - group
  *              title - title
- *              - content
- *                  videoUrl - url#
  *                  - thumbnail
  *                      thumbnailUrl - url#
  *                  - community
@@ -35,6 +34,8 @@ class RSSResponse {
 
     @Root(name = "entry", strict = false)
     class Entry @JvmOverloads constructor(
+        @field: Element(name = "videoId")
+        var videoUrl: String = "",
         @field: Element(name = "published")
         var uploaded: String = "",
         @field: Element(name = "author")
@@ -53,18 +54,10 @@ class RSSResponse {
     class Group @JvmOverloads constructor(
         @field: Element(name = "title")
         var title: String = "",
-        @field: Element(name = "content")
-        var content: Content? = null,
         @field: Element(name = "thumbnail")
         var thumbnail: Thumbnail? = null,
         @field: Element(name = "community")
         var community: Community? = null
-    )
-
-    @Root(name = "content", strict = false)
-    class Content @JvmOverloads constructor(
-        @field: Attribute(name = "url")
-        var videoUrl: String = ""
     )
 
     @Root(name = "thumbnail", strict = false)

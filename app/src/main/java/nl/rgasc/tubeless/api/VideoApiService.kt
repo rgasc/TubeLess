@@ -7,5 +7,5 @@ import retrofit2.http.Query
 interface VideoApiService {
 
     @GET("videos.xml")
-    suspend fun getVideos(@Query("channel_id") channelId: String) : RSSResponse.Feed
+    suspend fun getVideos(@Query("channel_id") channelId: String): RSSResponse.Feed
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -16,6 +17,7 @@ import nl.rgasc.tubeless.adapters.VideoAdapter
 import nl.rgasc.tubeless.databinding.FragmentFeedBinding
 import nl.rgasc.tubeless.models.Channel
 import nl.rgasc.tubeless.models.Video
+import nl.rgasc.tubeless.viewmodels.ChannelViewModel
 import nl.rgasc.tubeless.viewmodels.VideoViewModel
 
 /**
@@ -25,9 +27,10 @@ class FeedFragment : Fragment() {
 
     private var _binding: FragmentFeedBinding? = null
     private val binding get() = _binding!!
+    private val channelViewModel: ChannelViewModel by activityViewModels()
+    private val videoViewModel: VideoViewModel by activityViewModels()
     private val videos: ArrayList<Video> = arrayListOf()
     private lateinit var videoAdapter: VideoAdapter
-    private val viewModel: VideoViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,20 +57,16 @@ class FeedFragment : Fragment() {
     }
 
     private fun onVideoClick(video: Video) {
-        viewModel.currentVideo = video
+        videoViewModel.currentVideo = video
         findNavController().navigate(R.id.videoFragment)
     }
 
     private fun observeVideos() {
-        viewModel.getVideos(
-            arrayListOf(
-                Channel("NileRed", "UCFhXFikryT4aFcLkLw2LBLA"),
-                Channel("LGR", "UCLx053rWZxCiYWsBETgdKrQ"),
-                Channel("A Friend", "UCNtQ6jbQgkV4kII043lU06w")
-            )
-        )
+        channelViewModel.channels.observe(viewLifecycleOwner, { channels ->
+            videoViewModel.getVideos(channels)
+        })
 
-        viewModel.videos.observe(viewLifecycleOwner, Observer {
+        videoViewModel.videos.observe(viewLifecycleOwner, {
             videos.clear()
             videos.addAll(it.sortedByDescending { video -> video.uploaded })
             videoAdapter.notifyDataSetChanged()

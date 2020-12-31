@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.GravityCompat
-import androidx.lifecycle.Observer
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -66,7 +65,7 @@ class DrawerFragment : Fragment() {
     }
 
     private fun observeChannels() {
-        viewModel.channels.observe(viewLifecycleOwner, Observer {
+        viewModel.channels.observe(viewLifecycleOwner, {
             channels.clear()
             channels.addAll(it.sortedBy { channel -> channel.name })
             channelAdapter.notifyDataSetChanged()

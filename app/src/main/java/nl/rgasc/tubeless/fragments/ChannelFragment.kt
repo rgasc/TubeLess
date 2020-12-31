@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -64,13 +63,13 @@ class ChannelFragment : Fragment() {
     private fun observeVideos() {
         videoViewModel.getVideos(arrayListOf(channelViewModel.currentChannel))
 
-        videoViewModel.videos.observe(viewLifecycleOwner, Observer {
+        videoViewModel.videos.observe(viewLifecycleOwner, {
             videos.clear()
             videos.addAll(it.sortedByDescending { video -> video.uploaded })
             videoAdapter.notifyDataSetChanged()
         })
 
-        videoViewModel.error.observe(viewLifecycleOwner, Observer { error ->
+        videoViewModel.error.observe(viewLifecycleOwner, { error ->
             if (error) {
                 Toast.makeText(activity, "Unable to obtain videos for this channel", Toast.LENGTH_LONG).show()
                 findNavController().navigate(R.id.action_channelFragment_to_feedFragment)

@@ -1,10 +1,12 @@
 package nl.rgasc.tubeless.api
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.withTimeout
 import nl.rgasc.tubeless.models.Channel
 import nl.rgasc.tubeless.models.Video
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -17,10 +19,10 @@ class VideoRepository {
     val videos: LiveData<List<Video>> get() = _videos
 
     suspend fun getVideos(channels: List<Channel>) {
-        try {
-            val videos: ArrayList<Video> = arrayListOf()
+        val videos: ArrayList<Video> = arrayListOf()
 
-            channels.forEach {
+        channels.forEach {
+            try {
                 val response = withTimeout(5_000) {
                     videoApiService.getVideos(it.channelId)
                 }
@@ -40,13 +42,11 @@ class VideoRepository {
                         )
                     )
                 }
+            } catch (error: Exception) {
+                Log.e("Video API error", error.toString())
             }
-
-            _videos.value = videos
-        } catch (error: Throwable) {
-            throw VideoApiError("Unable to get channel feed", error)
         }
-    }
 
-    class VideoApiError(message: String, cause: Throwable) : Throwable(message, cause)
+        _videos.value = videos
+    }
 }

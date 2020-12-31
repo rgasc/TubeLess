@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.Observer
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -65,16 +66,11 @@ class DrawerFragment : Fragment() {
     }
 
     private fun observeChannels() {
-        val newChannels = arrayListOf<Channel>()
-        var c = 'z'
-
-        for (i in 1..26) {
-            newChannels.add(Channel("Channel #$c", "0"))
-            --c
-        }
-
-        channels.addAll(newChannels.sortedBy { it.name })
-        channelAdapter.notifyDataSetChanged()
+        viewModel.channels.observe(viewLifecycleOwner, Observer {
+            channels.clear()
+            channels.addAll(it.sortedBy { channel -> channel.name })
+            channelAdapter.notifyDataSetChanged()
+        })
     }
 
     private fun navigate(destination: Int) {

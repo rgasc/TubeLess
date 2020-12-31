@@ -67,10 +67,10 @@ class FeedFragment : Fragment() {
             )
         )
 
-            viewModel.videos.observe(viewLifecycleOwner, Observer {
-                videos.clear()
-                videos.addAll(it.sortedByDescending { video -> video.uploaded })
-                videoAdapter.notifyDataSetChanged()
-            })
+        viewModel.videos.observe(viewLifecycleOwner, Observer {
+            videos.clear()
+            videos.addAll(it.sortedByDescending { video -> video.uploaded })
+            videoAdapter.notifyDataSetChanged()
+        })
     }
 }

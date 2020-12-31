@@ -14,6 +14,7 @@ class VideoViewModel(application: Application) : AndroidViewModel(application) {
 
     private val videoRepository = VideoRepository()
     private val _currentVideo: MutableLiveData<Video> = MutableLiveData()
+    val error = MutableLiveData<Boolean>()
 
     val videos = videoRepository.videos
     var currentVideo: Video
@@ -24,8 +25,9 @@ class VideoViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             try {
                 videoRepository.getVideos(channels)
-            } catch (error: VideoRepository.VideoApiError) {
-                Log.e("Video API error", error.cause.toString())
+            } catch (err: VideoRepository.VideoApiError) {
+                Log.e("Video API error", err.cause.toString())
+                error.value = true
             }
         }
     }

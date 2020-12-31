@@ -23,9 +23,7 @@ class VideoViewModel(application: Application) : AndroidViewModel(application) {
     fun getVideos(channels: List<Channel>) {
         viewModelScope.launch {
             try {
-                channels.forEach {
-                    videoRepository.getVideos(it.channelId)
-                }
+                videoRepository.getVideos(channels)
             } catch (error: VideoRepository.VideoApiError) {
                 Log.e("Video API error", error.cause.toString())
             }

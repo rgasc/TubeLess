@@ -59,22 +59,18 @@ class FeedFragment : Fragment() {
     }
 
     private fun observeVideos() {
-        videos.clear()
-
         viewModel.getVideos(
             arrayListOf(
                 Channel("NileRed", "UCFhXFikryT4aFcLkLw2LBLA"),
-                Channel("A Friend", "UCNtQ6jbQgkV4kII043lU06w"),
-                Channel("LGR", "UCLx053rWZxCiYWsBETgdKrQ")
+                Channel("LGR", "UCLx053rWZxCiYWsBETgdKrQ"),
+                Channel("A Friend", "UCNtQ6jbQgkV4kII043lU06w")
             )
         )
 
-        viewModel.videos.observe(viewLifecycleOwner, Observer {
-            val currentVideos = ArrayList(videos)
-            videos.clear()
-            currentVideos.addAll(it)
-            videos.addAll(currentVideos.sortedByDescending { video -> video.uploaded })
-            videoAdapter.notifyDataSetChanged()
-        })
+            viewModel.videos.observe(viewLifecycleOwner, Observer {
+                videos.clear()
+                videos.addAll(it.sortedByDescending { video -> video.uploaded })
+                videoAdapter.notifyDataSetChanged()
+            })
     }
 }

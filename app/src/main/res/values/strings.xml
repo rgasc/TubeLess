@@ -9,9 +9,11 @@
     <string name="video_title">%s</string>
     <string name="video_info">%s · %s views · %s</string>
 
-    <string name="add_channel_description">Enter the channel title</string>
+    <string name="add_channel_name">Enter the channel name</string>
+    <string name="add_channel_id">Enter the channel ID</string>
     <string name="add_channel_button">Add</string>
-    <string name="add_channel_hint">Channel</string>
+    <string name="add_channel_name_hint">Name</string>
+    <string name="add_channel_id_hint">ID</string>
 
     <string name="drawer_title">Channels</string>
     <string name="drawer_btn_feed">Back to feed</string>

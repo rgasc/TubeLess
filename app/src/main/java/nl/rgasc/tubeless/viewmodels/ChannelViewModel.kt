@@ -32,7 +32,6 @@ class ChannelViewModel(application: Application) : AndroidViewModel(application)
             channelRepository.insertChannel(channel)
         }
 
-        currentChannel = channel
         success.value = true
     }
 

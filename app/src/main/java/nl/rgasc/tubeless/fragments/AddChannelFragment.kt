@@ -42,14 +42,14 @@ class AddChannelFragment : Fragment() {
     }
 
     private fun onAddChannel() {
-        viewModel.insertChannel(Channel("test", binding.etChannel.text.toString()))
+        viewModel.insertChannel(Channel(binding.etName.text.toString(), binding.etId.text.toString()))
 
         viewModel.error.observe(viewLifecycleOwner, { message ->
             Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
         })
 
         viewModel.success.observe(viewLifecycleOwner, {
-            findNavController().navigate(R.id.action_addChannelFragment_to_channelFragment)
+            findNavController().navigate(R.id.action_addChannelFragment_to_feedFragment)
         })
     }
 }

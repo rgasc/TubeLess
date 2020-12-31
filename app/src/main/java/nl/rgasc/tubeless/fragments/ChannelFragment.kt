@@ -1,11 +1,10 @@
 package nl.rgasc.tubeless.fragments
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -30,6 +29,11 @@ class ChannelFragment : Fragment() {
     private val videos: ArrayList<Video> = arrayListOf()
     private lateinit var videoAdapter: VideoAdapter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -48,6 +52,35 @@ class ChannelFragment : Fragment() {
         observeVideos()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_delete, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.delete -> {
+                val dialogBuilder = AlertDialog.Builder(requireContext())
+
+                dialogBuilder.setMessage("Are you sure you want to delete this channel?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes") { _, _ ->
+                        channelViewModel.deleteChannel(channelViewModel.currentChannel)
+                        findNavController().navigate(R.id.action_channelFragment_to_feedFragment)
+                    }
+                    .setNegativeButton("Cancel") { dialog, _ ->
+                        dialog.cancel()
+                    }
+
+                val alert = dialogBuilder.create()
+                alert.setTitle("Delete channel")
+                alert.show()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     private fun initViews() {
         videoAdapter = VideoAdapter(videos, ::onVideoClick)
 
@@ -57,7 +90,7 @@ class ChannelFragment : Fragment() {
 
     private fun onVideoClick(video: Video) {
         videoViewModel.currentVideo = video
-        findNavController().navigate(R.id.videoFragment)
+        findNavController().navigate(R.id.action_channelFragment_to_videoFragment)
     }
 
     private fun observeVideos() {
@@ -72,8 +105,8 @@ class ChannelFragment : Fragment() {
         videoViewModel.error.observe(viewLifecycleOwner, { error ->
             if (error) {
                 Toast.makeText(activity, "Unable to obtain videos for this channel", Toast.LENGTH_LONG).show()
-                findNavController().navigate(R.id.action_channelFragment_to_feedFragment)
                 videoViewModel.error.value = false
+                findNavController().navigate(R.id.action_channelFragment_to_feedFragment)
             }
         })
     }

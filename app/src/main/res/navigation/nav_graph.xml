@@ -9,8 +9,8 @@
         android:name="nl.rgasc.tubeless.fragments.AddChannelFragment"
         android:label="AddChannelFragment" >
         <action
-            android:id="@+id/action_addChannelFragment_to_channelFragment"
-            app:destination="@id/channelFragment" />
+            android:id="@+id/action_addChannelFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
     </fragment>
     <fragment
         android:id="@+id/channelFragment"
